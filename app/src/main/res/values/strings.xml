@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">act_smartfarm1</string>
+    <string name="menu_home" />
+    <string name="menu_watering" />
+    <string name="menu_watering_management" />
+    <string name="menu_plant_info" />
+</resources>
