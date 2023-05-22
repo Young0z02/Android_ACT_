@@ -13,14 +13,13 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.example.act_smartfarm1.DBHelper;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
-public class MainActivity extends AppCompatActivity {
+public class SecondMainActivity extends AppCompatActivity {
     private EditText titleEditText;
     private EditText contentEditText;
     private Button saveButton;
@@ -34,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.secondactivity_main);
 
         titleEditText = findViewById(R.id.title);
         contentEditText = findViewById(R.id.content);
@@ -94,13 +93,13 @@ public class MainActivity extends AppCompatActivity {
                 long id = dbHelper.insertMemo(new Memo(title, content, date));
 
                 if (id != -1) {
-                    Toast.makeText(MainActivity.this, "메모가 저장되었습니다.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(SecondMainActivity.this, "메모가 저장되었습니다.", Toast.LENGTH_SHORT).show();
                     // 메모가 저장된 후 메모 목록 화면으로 이동
-                    Intent intent = new Intent(MainActivity.this, MemoListActivity.class);
+                    Intent intent = new Intent(SecondMainActivity.this, MemoListActivity.class);
                     startActivity(intent);
                     finish(); // 현재 액티비티를 종료합니다.
                 } else {
-                    Toast.makeText(MainActivity.this, "메모 저장에 실패했습니다.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(SecondMainActivity.this, "메모 저장에 실패했습니다.", Toast.LENGTH_SHORT).show();
                 }
 
                 // 입력 필드 초기화
@@ -114,19 +113,5 @@ public class MainActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main_menu, menu);
         return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-
-        if (id == R.id.action_home) {
-            // Home 아이콘 클릭 시 MainActivity로 이동
-            Intent intent = new Intent(this, MainActivity.class);
-            startActivity(intent);
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
     }
 }

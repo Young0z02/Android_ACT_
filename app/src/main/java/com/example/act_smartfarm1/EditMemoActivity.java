@@ -72,7 +72,7 @@ public class EditMemoActivity extends AppCompatActivity {
 
         if (id == R.id.action_home) {
             // Home 아이콘 클릭 시 MainActivity로 이동
-            Intent intent = new Intent(this, MainActivity.class);
+            Intent intent = new Intent(this, SecondMainActivity.class);
             startActivity(intent);
             return true;
         }
