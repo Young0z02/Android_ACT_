@@ -25,9 +25,9 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginStart="151dp"
-        android:layout_marginEnd="78dp"
-        android:layout_marginBottom="639dp"
+        android:layout_marginStart="147dp"
+        android:layout_marginEnd="82dp"
+        android:layout_marginBottom="649dp"
         android:hint="이름을 적어주세요" />
 
     <TextView
@@ -64,6 +64,17 @@
         android:text="현재 토양수분"
         android:textSize="20sp" />
 
+    <Button
+        android:id="@+id/watering"
+        android:layout_width="77dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginEnd="159dp"
+        android:layout_marginBottom="379dp"
+        android:text="물주기" />
+
     <TextView
         android:id="@+id/memo"
         android:layout_width="70dp"
@@ -76,25 +87,35 @@
         android:text="메모"
         android:textSize="24sp" />
 
-    <Button
-        android:id="@+id/save"
-        android:layout_width="78dp"
-        android:layout_height="93dp"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginEnd="17dp"
-        android:layout_marginBottom="125dp"
-        android:text="저장" />
-
     <EditText
         android:id="@+id/content"
         android:layout_width="291dp"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginStart="18dp"
-        android:layout_marginBottom="124dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginBottom="235dp"
         android:hint="내용" />
+
+    <Button
+        android:id="@+id/memolist"
+        android:layout_width="77dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="235dp"
+        android:text="메모장" />
+
+    <Button
+        android:id="@+id/save"
+        android:layout_width="77dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="282dp"
+        android:text="저장" />
 
     <EditText
         android:id="@+id/title"
@@ -103,9 +124,42 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentBottom="true"
         android:layout_centerVertical="true"
-        android:layout_marginStart="18dp"
-        android:layout_marginBottom="172dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginBottom="283dp"
         android:hint="제목" />
+
+
+    <TextView
+        android:id="@+id/message1"
+        android:layout_width="236dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="133dp"
+        android:layout_marginTop="146dp"
+        android:text="Received message will appear here" />
+
+    <TextView
+        android:id="@+id/message2"
+        android:layout_width="236dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="133dp"
+        android:layout_marginTop="208dp"
+        android:text="Received message will appear here" />
+
+    <TextView
+        android:id="@+id/message3"
+        android:layout_width="236dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="165dp"
+        android:layout_marginTop="277dp"
+        android:layout_marginEnd="10dp"
+        android:text="Received message will appear here" />
 
     <FrameLayout
         android:id="@+id/fragmentContainer"
@@ -117,12 +171,18 @@
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNavigationView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="70dp"
+        android:layout_alignParentStart="true"
         android:layout_alignParentBottom="true"
-        android:background="@color/white"
-        app:itemIconTint="@color/black"
-        app:itemTextColor="@color/black"
-        app:menu="@menu/menu_bottom_navigation" />
+        android:layout_marginStart="0dp"
+        android:layout_marginBottom="1dp"
+        app:menu="@menu/menu_bottom_navigation"
+        app:labelVisibilityMode="unlabeled"
+        app:itemIconSize="60dp"
+        app:itemIconTint="@null" />
+
+
+
 
 
 </RelativeLayout>

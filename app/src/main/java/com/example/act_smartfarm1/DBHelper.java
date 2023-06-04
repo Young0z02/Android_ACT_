@@ -5,9 +5,17 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import com.example.act_smartfarm1.WateringLog;
 
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 public class DBHelper extends SQLiteOpenHelper {
 
@@ -18,6 +26,11 @@ public class DBHelper extends SQLiteOpenHelper {
     private static final String COLUMN_TITLE = "title";
     private static final String COLUMN_CONTENT = "content";
     private static final String COLUMN_DATE = "date";
+    private static final String TABLE_WATERING_LOG = "watering_log";
+    private static final String COLUMN_LOG_ID = "id";
+    private static final String COLUMN_LOG_DATE = "date";
+    private static final String COLUMN_LOG_TIME = "time";
+    private static final String COLUMN_LOG_AMOUNT = "amount";
 
     public DBHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -32,11 +45,20 @@ public class DBHelper extends SQLiteOpenHelper {
                 + COLUMN_DATE + " DATETIME DEFAULT CURRENT_TIMESTAMP"
                 + ")";
         db.execSQL(CREATE_TABLE);
+
+        String CREATE_WATERING_LOG_TABLE = "CREATE TABLE " + TABLE_WATERING_LOG + "("
+                + COLUMN_LOG_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
+                + COLUMN_LOG_DATE + " TEXT,"
+                + COLUMN_LOG_TIME + " TEXT,"
+                + COLUMN_LOG_AMOUNT + " INTEGER"
+                + ")";
+        db.execSQL(CREATE_WATERING_LOG_TABLE);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_WATERING_LOG);
         onCreate(db);
     }
 
@@ -81,7 +103,6 @@ public class DBHelper extends SQLiteOpenHelper {
             String title = cursor.getString(cursor.getColumnIndex(COLUMN_TITLE));
             String content = cursor.getString(cursor.getColumnIndex(COLUMN_CONTENT));
             String date = cursor.getString(cursor.getColumnIndex(COLUMN_DATE));
-
             memo = new Memo(memoId, title, content, date);
             cursor.close();
         }
@@ -105,7 +126,6 @@ public class DBHelper extends SQLiteOpenHelper {
                 String title = cursor.getString(cursor.getColumnIndex(COLUMN_TITLE));
                 String content = cursor.getString(cursor.getColumnIndex(COLUMN_CONTENT));
                 String date = cursor.getString(cursor.getColumnIndex(COLUMN_DATE));
-
                 Memo memo = new Memo(memoId, title, content, date);
                 memoList.add(memo);
             } while (cursor.moveToNext());
@@ -117,5 +137,52 @@ public class DBHelper extends SQLiteOpenHelper {
 
         return memoList;
     }
+
+    public void addWateringLog() {
+        SQLiteDatabase db = getWritableDatabase();
+
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+        String date = sdf.format(new Date());
+
+        sdf = new SimpleDateFormat("HH:mm:ss", Locale.getDefault());
+        String time = sdf.format(new Date());
+
+        int amount = 50;
+
+        ContentValues values = new ContentValues();
+        values.put(COLUMN_LOG_DATE, date);
+        values.put(COLUMN_LOG_TIME, time);
+        values.put(COLUMN_LOG_AMOUNT, amount);
+
+        db.insert(TABLE_WATERING_LOG, null, values);
+        db.close();
+    }
+
+    public List<WateringLog> getAllWateringLogs() {
+        List<WateringLog> logList = new ArrayList<>();
+
+        String selectQuery = "SELECT * FROM " + TABLE_WATERING_LOG + " ORDER BY " + COLUMN_LOG_ID + " DESC";
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+
+        if (cursor != null && cursor.moveToFirst()) {
+            do {
+                int logId = cursor.getInt(cursor.getColumnIndex(COLUMN_LOG_ID));
+                String date = cursor.getString(cursor.getColumnIndex(COLUMN_LOG_DATE));
+                String time = cursor.getString(cursor.getColumnIndex(COLUMN_LOG_TIME));
+                int amount = cursor.getInt(cursor.getColumnIndex(COLUMN_LOG_AMOUNT));
+                WateringLog log = new WateringLog(logId, date, time, amount);
+                logList.add(log);
+            } while (cursor.moveToNext());
+
+            cursor.close();
+        }
+
+        db.close();
+
+        return logList;
+    }
 }
+
 
